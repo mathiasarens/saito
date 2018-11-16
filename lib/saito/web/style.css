@@ -23,7 +23,7 @@
    .logo {
     width:35px;
     margin-top:10px;
-    margin-left: 2.1em;
+    margin-left: 1.3em;
     margin-right: 0.35em;
     float:left;
    }
@@ -255,6 +255,7 @@
       grid-template-areas:
       "content"
       "ads";
+      grid-row-gap: 1em;
      }
 
      .logo {
@@ -270,7 +271,8 @@
      }
 
      .orange_button {
-       width: 105px;
+       /* width: 105px; */
+       padding: 1rem 2rem;
        font-size: 0.8em;
        /* padding: 0.8em 1.5em; */
      }
