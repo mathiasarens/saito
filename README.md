@@ -64,4 +64,4 @@ this.publickey = this.app.wallet.returnPublicKey();`
 If you have any questions or need help please get in touch:  
 
 * david@saito
-* david@popupchinese.com  
+* david@saito.tech
