@@ -128,12 +128,14 @@ li {
 
 .hash_search_input {
  min-width: 300px;
+ width: 80%;
  font-size: 1.1em;
  padding: 2px;
 }
 .hash_search_submit {
  font-size: 1.1em;
- padding: 15px;
+ padding: 2px;
+ width: 20%;
 }
 
 
