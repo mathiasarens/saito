@@ -25,7 +25,7 @@ h1 {
     color:#ff8844;
 }
 
-.orange_button {
+.submit {
     text-align:center;
     max-width: 200px;
     padding: 15px 35px;
@@ -89,9 +89,6 @@ h1 {
       text-align: center;
     }
     .submit {
-      border-color: black
-    }
-    .orange_button {
         max-width: 100%;
     }
     .logo {
