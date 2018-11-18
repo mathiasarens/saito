@@ -1,6 +1,6 @@
 
 .body {
- font-family: arial, helvetica, sans-serif;
+ font-family: monospace, arial, helvetica, sans-serif;
  font-size: 13px;
  padding:0px;
  margin:0px;
@@ -46,6 +46,7 @@
  max-width: 640px;
  padding: 40px;
  font-size:1.2em;
+ font-family: monospace;
 }
 
 li {
@@ -127,12 +128,14 @@ li {
 
 .hash_search_input {
  min-width: 300px;
+ width: 80%;
  font-size: 1.1em;
  padding: 2px;
 }
 .hash_search_submit {
  font-size: 1.1em;
- padding: 15px;
+ padding: 2px;
+ width: 20%;
 }
 
 

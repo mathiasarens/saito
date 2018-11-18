@@ -1,3 +1,5 @@
+/* NOTE NEED TO ADD BLOCKCHAIN_SYNCFADE TOP RIGHT CORNER FOR MOBILE */
+
 .mail-module-label {
   font-weight:bold;
   position:absolute;
@@ -43,7 +45,7 @@
 
 .logo {
  width:35px;
- margin-top:5px;
+ margin-top:10px;
  margin-left:25px;
  margin-right:10px;
  float:left;
@@ -169,7 +171,8 @@
  max-width: 100%;
  grid-area: mail-header;
  display: grid;
- grid-template-columns: 1fr auto 1fr;
+ grid-template-columns: 1fr auto 2fr;
+ /* grid-template-columns: 1fr 1fr; */
  grid-template-areas:
  "mail-controls mail-alertbox mail-balance";
  border-bottom: 1px solid #d5d5d5;
@@ -671,7 +674,8 @@ td .from {
     grid-area: main;
     display: grid;
     grid-column-gap: 0em;
-    grid-template-columns: auto 2fr;
+    grid-template-columns: auto 1fr;
+    /* grid-template-columns: 10rem; */
     grid-template-rows: 4.0rem auto;
     grid-template-areas:
     "sidebar mail-header"
@@ -753,7 +757,19 @@ td .from {
     margin-left: 12px;
   }
 
+  #blockchain_syncfade {
+    position: absolute;
+    top: 0px;
+    right: 1em;
+  }
 
+  /* .email_title {
+    margin-top: 1em;
+  } */
+
+  .logo {
+    margin-left: 0.6em;
+  }
 
   .inner_message .from {
     width: 120px;
@@ -761,6 +777,25 @@ td .from {
     overflow: hidden;
     border-top: 0px;
     vertical-align: center;
+  }
+
+  .lightbox_compose_module {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-row-gap: 1em;
+  }
+
+  .lightbox_compose_module_box {
+    max-width: 100%;
+  }
+
+  .lightbox_compose_compose {
+    width: 100%;
+    max-width: 100%
+  }
+
+  .redbutton {
+    max-width: 100%;
   }
 
   .mail-alertbox {
@@ -775,6 +810,7 @@ td .from {
   .mail-header {
     font-size: 1.45em;
     padding-left: 0px;
+    grid-template-columns: 1fr auto 2fr;
   }
 
   .settings-wrapper {
@@ -785,7 +821,7 @@ td .from {
   }
 
   .mail-controls {
-   min-width: 140px;
+   min-width: 105px;
    align-self: top;
    padding-bottom:14px;
   }
@@ -811,6 +847,7 @@ td .from {
   }
 
   .mail-module-label {
+    /* display: none; */
     font-weight: bold;
     position: absolute;
     display: none;
@@ -818,7 +855,7 @@ td .from {
     background-color: white;
     margin-left: 110px;
     font-size: 1.4em;
-    height: 54px;
+    /* height: 54px; */
     padding-top: 2px;
     padding-bottom: 5px;
     min-width: 120px;
