@@ -61,11 +61,6 @@
           <div class="facebook_button_big left" id="settings"><i class="fa fa-gear"></i></div>
         </div>
 
-        <!-- <div class="following" id="following">
-          <div class="following_label">Currently Following:</div>
-          <div id="following_friends_box">You have no friends :(</div>
-        </div> -->
-
       </div>
 
       <div class="posts" id="posts"></div>
@@ -77,19 +72,16 @@
 
 
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/browser.js"></script>
-  <script src="/facebook/script.js"></script>
-
 
 
   <div class="lightbox_follow" id="lightbox_follow" style="display:none">
+
     <div class="following" id="following">
       <div class="following_label">Currently Following:</div>
-      <div id="following_friends_box" style="font-size: 16px; font-weight: bold;">You have no friends :(</div>
+      <div id="following_friends_box" style="font-size: 16px; font-weight: bold;">You have no friends</div>
     </div>
 
-    <center>Who do you want to follow:</center>
+    <center style="font-size: 1.3em;margin-top: 25px;" id="who_follow" class="who_follow">who do you want to follow:</center>
     <p></p>
     <input id="lightbox_follow_input" class="lightbox_follow_input" />
     <p></p>
@@ -177,6 +169,10 @@
 
   </div>
 
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/browser.js"></script>
+  <script src="/facebook/script.js"></script>
 </body>
 </html>
 
