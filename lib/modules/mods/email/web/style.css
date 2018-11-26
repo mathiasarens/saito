@@ -95,6 +95,7 @@
 .sidebar {
  grid-area: sidebar;
  float: left;
+ height: 11em;
 }
 #blockchain_syncfade {
  width:140px;
