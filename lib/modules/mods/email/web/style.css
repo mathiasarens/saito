@@ -390,7 +390,7 @@ td .from {
   min-height: 520px;
   height: 520px;
   line-height: 27px;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
 }
 
 .module_editable_space {
@@ -816,6 +816,10 @@ td .from {
 
   .settings-wrapper {
     display: none;
+  }
+
+  .sidebar {
+    height: 99%;
   }
   .mail-controls-btn {
     padding-top: 12px;

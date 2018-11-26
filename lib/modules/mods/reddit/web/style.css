@@ -7,7 +7,7 @@ body {
 
 .logo {
     width:35px;
-    margin-top:5px;
+    margin-top:10px;
     margin-left: 1em;
     margin-right: 0.35em;
     float:left;
@@ -649,6 +649,10 @@ textarea {
         right: 0px;
         margin-bottom: 0px;
         margin-right: 5px;
+    }
+
+    .logo {
+        margin-left: 0.6em;
     }
 
 }
