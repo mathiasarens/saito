@@ -13,6 +13,7 @@ lib/data/*
 lib/options
 lib/options.*
 lib/options-bk
+lib/env_files
 lib/saito/*.swp
 lib/saito/web/browser.js
 lib/data/database.sq3
