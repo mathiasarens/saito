@@ -874,3 +874,73 @@ input#restore_privatekey_input {
   font-size: 20px;
   padding: 5px;
 }
+
+
+.file-upload, .file-download {
+  padding: 5px;
+  color: #eee;
+  background-color: #369;
+  border-radius: 3px;
+  margin-top: 5px;
+  display: block;
+}
+
+.file-upload:before, .file-download:before {
+  font-family: FontAwesome;
+  content: "\f15b";
+  padding: 0 7px 0 5px;
+  display: inline-block;
+  width: 12px;
+}
+
+.file-download {
+  text-decoration: none;
+}
+
+.file-upload:hover::before {
+  content: "\f1f8";
+  width: 12px;
+  transition: content 0.5s ease 0.1s;
+  display: inline-block;
+}
+
+.file-download:hover::before {
+  content: "\f019";
+  width: 12px;
+  font-size: larger;
+  display: inline-block;
+}
+
+.addfile {
+  clear: both;
+  max-width: 140px;
+  color: #ffffff;
+  background-color: #d14836;
+  text-align: center;
+  line-height: 29px;
+  font-weight: bold;
+  background-image: linear-gradient(to bottom, #dd4b39, #d14836);
+  border: 1px solid #b0281a;
+  cursor: pointer;
+}
+
+.addfile:hover {
+  background-image: linear-gradient(to bottom, #dd4b39, #c53727);
+  border: 1px solid #b0281a;
+}
+
+#file-wrap {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  min-width: 150px;
+  margin-top: 5px;
+  height: 30px;
+}
+
+#email_attachment {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
