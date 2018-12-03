@@ -915,18 +915,18 @@ input#restore_privatekey_input {
   clear: both;
   max-width: 140px;
   color: #ffffff;
-  background-color: #d14836;
+  background-color: #336699;
   text-align: center;
   line-height: 29px;
   font-weight: bold;
-  background-image: linear-gradient(to bottom, #dd4b39, #d14836);
-  border: 1px solid #b0281a;
+  background-image: linear-gradient(to bottom, #6699bb, #336699);
+  border: 1px solid #336699;
   cursor: pointer;
 }
 
 .addfile:hover {
-  background-image: linear-gradient(to bottom, #dd4b39, #c53727);
-  border: 1px solid #b0281a;
+  background-image: linear-gradient(to bottom, #77aacc, #6699bb);
+  border: 1px solid #4477aa;
 }
 
 #file-wrap {
