@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trevelyan/newsaito.git"
+    "url": "git+https://github.com/SaitoTech/saito.git"
   },
   "author": "",
   "license": "private",
   "bugs": {
-    "url": "https://github.com/trevelyan/newsaito/issues"
+    "url": "https://github.com/SaitoTech/saito/issues"
   },
-  "homepage": "https://github.com/trevelyan/newsaito#readme",
+  "homepage": "https://github.com/SaitoTech/saito#readme",
   "dependencies": {
     "base-58": "0.0.1",
     "big.js": "5.1.2",
