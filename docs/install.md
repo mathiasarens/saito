@@ -19,7 +19,7 @@ sudo apt-get install -y nodejs
 ```
 
 ### Mac
-We recommend getting [brew](https://brew.sh/) to install node on Mac
+We recommend getting [brew](https://brew.sh/) to install `node` on Mac
 ```
 brew link node@10
 brew install node

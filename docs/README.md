@@ -1,8 +1,8 @@
 # Welcome to Saito
 
 ## Getting started
-If you just downloaded Saito and want to get it running, please read our 
-[INSTALL file](INSTALL.md) instead of this one. This README contains more general
+If you just downloaded Saito and want to get it running, please read our
+[installation instructions](install.md) instead of this one. This README contains more general
 information that might be useful for developers getting started.
 
 
