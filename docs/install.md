@@ -51,6 +51,11 @@ make install
 
 ## Install Saito
 
+Clone Saito from the github repo:
+```
+git clone https://github.com/saitotech/saito
+```
+
 Change directory into `saito` and install required NodeJS dependencies:
 ```
 npm install
