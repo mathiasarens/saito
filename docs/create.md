@@ -29,6 +29,7 @@ We've created a new directory in our modules directory called `todo` with a `web
 
 ## Coding our Module
 
+### Create the Constructor
 First thing to do is to make the constructor for our TODO module
 
 ```javascript
@@ -73,7 +74,7 @@ function Todo(app) {
 
   this.app             = app;
 
-  this.tasks           = [];
+  this.tasks           = {};
 
   this.name            = "Todo";
   this.browser_active  = 0;
@@ -87,18 +88,21 @@ module.exports = Todo;
 util.inherits(Todo, ModTemplate);
 ```
 
-Next, we want to think about how our module will work and transact with the Saito chain. Let's say that it will cost someone their default fee to both create a task and to toggle its status of completion. So, we'll want to create that logic first in our `onConfirmation` function first.
+### Listening with onConfirmation
+
+We want to think about how our module will work and transact with the Saito chain. Let's say that it will cost someone their default fee to both create a task and to toggle its status of completion. So, we'll want to create that logic first in our `onConfirmation` function first.
 
 ```javascript
 // todo.js
 
 Todo.prototype.onConfirmation = function onConfirmation(blk, tx, conf, app) {
   if (conf == 0) {
+    todo = app.modules.returnModule("Todo");
     switch (tx.transaction.msg.type) {
       case "task":
         this.addTask(tx);
-      case "checkmark":
-        this.toggleCheckmark(tx);
+      case "checkbox":
+        this.toggleCheckbox(tx);
       default:
         break;
     }
@@ -109,7 +113,7 @@ Todo.prototype.onConfirmation = function onConfirmation(blk, tx, conf, app) {
 We'll hold off on fleshing out the render logic to these functions until we've built out our html and css.
 
 
-Next thing that we'll want to do is allow the user to create transactions for both tasks and checkmarks and then propagate them into the network. We can write out our logic for that in a custom function called `createTodoTx`.
+Next thing that we'll want to do is allow the user to create transactions for both tasks and checkboxs and then propagate them into the network. We can write out our logic for that in a custom function called `createTodoTx`. This allows us to generically create TX for both our tasks and our checkboxs.
 
 ```javascript
 // todo.js
@@ -131,9 +135,13 @@ Todo.prototype.createTodoTX = function createTodoTx(data) {
 }
 ```
 
-Cool, this allows us to generically create TX for both our tasks and our checkmarks. Now that we have some of our chain logic coded, we can start to connect this to the view logic of our module.
+### HTML & CSS
+
+Now that we have some of our chain logic coded, we can start to connect this to the view logic of our module.
 
 ```html
+<!-- index.html -->
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -164,25 +172,26 @@ Cool, this allows us to generically create TX for both our tasks and our checkma
         </div>
         <div class="module_container">
           <div class="headerSpace">
-            <h1>Saito Todo Module</h1>
+            <h1>Tasks TODO</h1>
           </div>
           <div class="addTaskSpace">
-            <button class="addTaskButton">Add Task</button>
+            <button id="add_task_button">Add Task</button>
             <input type="text" class="submit_task" id="submit_task" name="submit_task" />
           </div>
           <div class="todoListSpace">
-            <div class="todoList">
-              New task
-            </div>
+            <div class="todoList"></div>
           </div>
         </div>
       </div>
     <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/browser.js"></script>
   </body>
 </html>
 ```
 
 ```css
+/* style.css */
+
 body {
     font-family: arial, helvetica, sans-serif;
     font-size: 13px;
@@ -228,6 +237,19 @@ h1 {
     "todoListSpace todoListSpace todoListSpace"
 }
 
+.task_container {
+    display: flex;
+    align-items: center;
+}
+
+.task_checkbox {
+    margin-right: 2em;
+}
+
+.task {
+    font-size: 1.25em;
+}
+
 .module_label {
     font-family:Georgia;
     padding-top:5px;
@@ -248,6 +270,8 @@ h1 {
 }
 ```
 
+Just because these files exist, we need a way for our serve to send them to our browser. We'll extend our web server with the `webServer` function
+
 ```javascript
 // todo.js
 
@@ -265,6 +289,8 @@ Todo.prototype.webServer = function webServer(app, expressapp) {
 }
 ```
 
+Our serve won't bundle our module into our `browser.js` file with the rest of the modules unless it's added to the `mods.js` file in the root of our modules directory
+
 ```javascript
 // mods.js
 
@@ -278,7 +304,102 @@ this.mods.push(require('./mods/debug/debug')(this.app));
 this.mods.push(require('./mods/todo/todo')(this.app));
 ```
 
-Ok, now we're starting to see it take form! If you don't have your Saito instance started at this point, start it and take a look at [`http://localhost:12101/todo`](http://localhost:12101/todo) to check it out and see what it looks like.
+Ok, now we're starting to see it take form! If you don't have your Saito instance started at this point, make sure to run `npm run nuke` to recompile the modules, `npm start` and take a look at [`http://localhost:12101/todo`](http://localhost:12101/todo) to check it out and see what it looks like.
 
-It's starting to form, but it still doesn't do anything for us. Lets create a form to add tasks to our list, and add them to the Saito network.
+### Event Listeners with attachEvents
+
+Our module is starting to form, but it still isn't functional quite yet. Let's create an event listener on our button to create a transaction out of the whatever we put in the form next to it.
+
+```javascript
+// mods.js
+
+// ...
+
+Todo.prototype.attachEvents = function attachEvents(app) {
+  if (!app.BROWSER) { return };
+
+  $('#add_task_button').off();
+  $('#add_task_button').on('click', () => {
+    alert("You've clicked the button");
+
+    let description = $('.submit_task').val();
+    $('.submit_task').val("");
+
+    if (description) {
+      var task = {
+        description,
+        completed: false
+      }
+    } else {
+      alert("Please put something in the description box before submitting");
+    }
+
+    var task_tx = this.createTodoTX(task);
+
+    if (!task_tx) {
+      alert("You don't have enough funds to post this");
+    }
+
+    this.addTask(task_tx);
+
+  });
+}
+
+Todo.prototype.addTask = function addTask(task_tx) {
+  if (this.tasks[task_tx.transaction.sig]) { return; }
+
+  var newTask = `
+  <div class="task_container">
+    <input type="checkbox" class="task_checkbox" id="${task_tx.transaction.sig}">
+    <div class="task" id="task_${task_tx.transaction.sig}">${task_tx.transaction.msg.description}</div>
+  </div>
+  `
+  $('.todoList').append(newTask);
+
+  this.tasks[task_tx.transaction.sig] = 1;
+
+  this.attachEvents(this.app);
+}
+}
+```
+
+We're creating a transaction from our description, propagating out to the Saito network, then adding the task locally. You can have both peers on the network be able to stay synced now when posted.
+
+Now we have to do this again for clicking on the checkbox. We'll add another handle on `attachEvents`
+
+```javascript
+// todo.js
+
+// attachEvents
+
+// ...
+
+$('input:checkbox').off();
+$('input:checkbox').on('click', function() {
+  var checkbox = {
+    id: this.id,
+    type: "checkbox",
+    completed: this.checked
+  }
+
+  var checkbox_tx = todo_self.createTodoTX(checkbox);
+
+  if (!checkbox_tx) {
+    alert("You don't have enough funds to post this");
+  }
+});
+```
+
+Locally our task will update automatically, but for the other nodes in the network we need to toggle our checkboxes manually when the request comes in through the transaction.
+
+```javascript
+Todo.prototype.toggleCheckbox = function toggleCheckbox(checkbox_tx) {
+  var {id, completed} = checkbox_tx.transaction.msg;
+  $(`#${id}`).prop('checked', completed);
+}
+```
+
+With that, now we can open up two browsers both at `https://localhost:12101`. Assuming both wallets have tokens, we can have see that our tasks and checkboxes are synced between both tabs!
+
+Congratulations, you've officially created your first Saito module! There's much more to be done with our module, you can add a database to save the state. You can use `handlePeerRequest` to send off-chain data between peers. You can even integrate with other Saito modules such as Saito Email and Saito Advertisements to give your users free Saito. This is only the beginning of your journey of building decentralized applicationbs on Saito. Check out the rest of the documentation to get a grasp of other functions, and check out the [repo](https://github.com/SaitoTech/saito) for examples of some more complicated Saito modules the Saito team has already created.
 

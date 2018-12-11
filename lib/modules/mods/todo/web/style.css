@@ -19,9 +19,6 @@ h1 {
 
 .header {
     grid-area: header;
-    /* width: 1200px; */
-    /* height: 50px; */
-    /* background-color: #e5e5e5; */
     border-bottom: 1px solid #a5a5a5;
     font-size:2em;
 }
@@ -44,6 +41,19 @@ h1 {
     "headerSpace headerSpace addTaskSpace"
     "todoListSpace todoListSpace todoListSpace"
     "todoListSpace todoListSpace todoListSpace"
+}
+
+.task_container {
+    display: flex;
+    align-items: center;
+}
+
+.task_checkbox {
+    margin-right: 2em;
+}
+
+.task {
+    font-size: 1.25em;
 }
 
 .module_label {
